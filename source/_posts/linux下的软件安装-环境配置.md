@@ -236,7 +236,54 @@ sftp>put 本地文件绝对路径
 	service mysql restart
 	```
 
-# redis安装
-
 # jenkins安装
 
+> 前置准备java环境，安装JDK，安装方式：rpm包下载安装
+
+1. 官网下载[官网下载](https://jenkins.io/download/)
+
+2. 解压安装
+
+	```bash
+	rpm -ih jenkins-1.562-1.1.noarch.rpm
+	rm -rf jenkins-1.562-1.1.noarch.rpm
+	```
+
+	自动安装完成之后： 
+
+	* /usr/lib/jenkins/jenkins.war    WAR包 
+	* /etc/sysconfig/jenkins       配置文件
+	* /var/lib/jenkins/        默认的JENKINS_HOME目录
+	* /var/log/jenkins/jenkins.log    Jenkins日志文件
+
+3. 配置jenkins
+
+	```bash
+	vi /etc/sysconfig/jenkins
+	```
+
+	进入jenkins的系统配置文件并修改相关端口号（也可以不修改）
+	jenkins的默认JENKINS_PORT是8080，JENKINS_AJP_PORT默认端口是8009，这同tomcat的默认端口冲突。我这更改为8088和8089。
+
+	```bash
+	vi /etc/init.d/jenkins
+	```
+
+	加入java环境变量
+	candidates="/usr/java/jdk1.8.0_191/bin/java"
+
+4. 启动
+	```bash
+	service jenkins start
+	```
+
+5. jenkins服务安装
+
+	提示安装自定义插件还是推荐插件，选择推荐插件：
+	![](/images/2018-11-08/jenkins_1.png)
+	![](/images/2018-11-08/jenkins_2.png)
+	创建管理员用户
+	![](/images/2018-11-08/jenkins_3.png)
+	![](/images/2018-11-08/jenkins_4.png)
+
+# nginx安装
