@@ -118,6 +118,124 @@ sftp>put 本地文件绝对路径
 	Java HotSpot(TM) 64-Bit Server VM (build 25.191-b12, mixed mode)
 	```
 
+# mysql安装
+1. mysql官网下载[官网下载](https://www.mysql.com/downloads/)
+
+2. 卸载旧mysql并安装
+	如果有旧版本mysql删除：
+	```bash
+	find / -name mysql
+	rm -rf #上边查找到的路径
+	```
+
+	安装：
+	```bash
+	tar -zxvf mysql-5.6.42-linux-glibc2.12-x86_64.tar.gz #解压
+	rm -rf mysql-5.6.42-linux-glibc2.12-x86_64.tar.gz #删除安装包
+	mv mysql-5.6.42-linux-glibc2.12-x86_64/ mysql #更名mysql
+	```
+
+3. 添加mysql用户组和mysql用户
+	先检查是否有mysql用户组和mysql用户
+	```bash
+	groups mysql
+	```
+
+	若无，则添加
+	```bash
+	groupadd mysql
+	useradd -r -g mysql mysql
+	```
+
+4. 进入mysql目录更改权限
+
+	```bash
+	cd mysql/
+	chown -R mysql:mysql ./ #修改目录拥有者为mysql用户
+	```
+
+5. 执行安装脚本
+
+	```bash
+	./scripts/mysql_install_db --user=mysql --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data
+	```
+
+	5.7.6之后的版本初始化数据库不再使用mysql_install_db，而是使用： bin/mysqld --initialize
+
+	***出现以下异常信息***：
+	<font color="red">FATAL ERROR: please install the following Perl modules before executing scripts/mysql_install_db:Data::Dumper</font>
+
+	```bash
+	#解决方法（缺少安装包perl-Data-Dumper）：
+	yum install -y perl-Data-Dumper
+	```
+	<font color="red">error while loading shared libraries: libaio.so.1: cannot open shared object file: No such file or directory</font>
+	```bash
+	#解决方法（缺少安装包libaio和libaio-devel.）：
+	yum install libaio*
+	```
+
+	安装完之后修改当前目录拥有者为root用户，修改data目录拥有者为mysql
+
+	```bash
+	chown -R root:root ./ #修改当前目录拥有者为root用户
+	chown -R mysql:mysql data #修改当前data目录拥有者为mysql用户
+	```
+
+6. 添加mysql自启动
+	
+	```bash
+	cp support-files/mysql.server /etc/init.d/mysql
+	chkconfig --add mysql #添加系统服务
+	chkconfig mysql on
+	#创建缺少的文件
+	mkdir /var/log/mariadb
+	touch /var/log/mariadb/mariadb.log
+	#添加mysql命令
+	ln -s /usr/local/mysql/bin/mysql /usr/bin
+	service mysql start #启动mysql服务
+	```
+
+7. 更改mysql密码
+
+	```bash
+	./bin/mysqladmin -u root password 'root' #更改密码
+	```
+	***更改密码出现以下异常信息***：
+	<font color="red">Can't connect to local MySQL server through socket '/tmp/mysql.sock' (2)</font>
+
+	```bash
+	#解决方法：打开/etc/my.cnf,看看里面配置的socket位置是什么目录。
+	#“socket=/var/lib/mysql/mysql.sock”路径和“/tmp/mysql.sock”不一致。建立一个软连接：
+	ln -s /var/lib/mysql/mysql.sock /tmp/mysql.sock
+	```
+
+8. 增加远程登录权限
+
+	本地登陆MySQL后执行如下命令
+	```bash
+	grant all privileges on *.* to root@'%' identified by 'root';
+	flush privileges;
+	```
+	* grant all privileges on 库名.表名 to '用户名'@'IP地址' identified by '密码' with grant option;
+	* 库名:要远程访问的数据库名称,所有的数据库使用“*” 
+	* 表名:要远程访问的数据库下的表的名称，所有的表使用“*” 
+	* 用户名:要赋给远程访问权限的用户名称 
+	* IP地址:可以远程访问的电脑的IP地址，所有的地址使用“%” 
+	* 密码:要赋给远程访问权限的用户对应使用的密码
+
+9. 配置my.cnf
+
+	参考：[my.cnf配置参数](http://www.cnblogs.com/lyq863987322/p/8074749.html)
+	```bash
+	vim my.cnf
+	#添加以下语句并保存退出
+	lower_case_table_names=1
+	max_allowed_packet=100M
+	#配置好之后，重启mysqld服务
+	service mysql restart
+	```
+
 # redis安装
 
 # jenkins安装
