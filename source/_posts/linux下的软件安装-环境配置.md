@@ -286,4 +286,52 @@ sftp>put 本地文件绝对路径
 	![](/images/2018-11-08/jenkins_3.png)
 	![](/images/2018-11-08/jenkins_4.png)
 
-# nginx安装
+# git安装
+
+1. 下载
+	获取github最新的Git安装包下载链接并解压
+	```bash
+	wget https://github.com/git/git/archive/v2.17.0.tar.gz
+	tar -zxvf v2.17.0.tar.gz
+	rm -rf v2.17.0.tar.gz
+	```
+
+2. 安装编译源码所需依赖
+
+	```bash
+	yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel gcc perl-ExtUtils-MakeMaker
+	```
+	耐心等待安装，出现提示输入y即可；
+
+	安装依赖时，yum自动安装了Git，需要卸载旧版本Git出现提示输入y即可；
+	```bash
+	yum remove git
+	```
+	出现提示输入y即可
+
+3. 编译安装
+
+	```bash
+	cd git-2.17.0
+	make prefix=/usr/local/git all
+	#安装Git至/usr/local/git路径
+	make prefix=/usr/local/git install
+	```
+
+4. 配置环境变量 
+	打开环境变量配置文件，
+	```bash
+	vim /etc/profile
+	```
+	在底部加上Git相关配置信息
+	***
+	PATH=$PATH:/usr/local/git/bin
+	export PATH
+	***
+	```bash
+	#让更改立刻生效
+	source /etc/profile
+	```
+5. 验证
+
+	输入命令 git version ，查看安装的git版本，安装成功。
