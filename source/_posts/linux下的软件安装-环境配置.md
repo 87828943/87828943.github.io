@@ -230,6 +230,7 @@ sftp>put 本地文件绝对路径
 	```bash
 	vim my.cnf
 	#添加以下语句并保存退出
+	default-charater-set=utf8
 	lower_case_table_names=1
 	max_allowed_packet=100M
 	#配置好之后，重启mysqld服务
@@ -335,3 +336,67 @@ sftp>put 本地文件绝对路径
 5. 验证
 
 	输入命令 git version ，查看安装的git版本，安装成功。
+
+# redis安装
+
+1. 下载
+	```bash
+	wget http://download.redis.io/releases/redis-3.0.1.tar.gz
+	```
+
+2. 解压安装
+
+	```bash
+	$ tar xzf redis-3.0.1.tar.gz
+	$ cd redis-3.0.1
+	$ make
+	#直接make 编译
+	#可使用root用户执行`make install`，将可执行文件拷贝到/usr/local/bin目录下。这样就可以直接敲名字运行程序了。
+	$ make install
+	```
+
+	验证  执行redis-server
+	![](/images/2018-11-08/redis.png)
+	
+3. redis后台运行
+	redis 默认是在前台运行，这样操作起来很不方便，通过设置redis.conf 可让redis在后台运行
+
+	a)首先编辑conf文件，将daemonize属性改为yes（表明需要在后台运行）
+	```bash
+	cd etc/
+	Vim redis.conf
+	```
+
+# nginx 安装
+
+1. 下载
+	```bash
+	wget http://nginx.org/download/nginx-1.13.7.tar.gz
+	```
+2. 安装
+
+	```bash
+	tar -xvf nginx-1.13.7.tar.gz
+	mv nginx-1.13.7/ nginx
+	cd nginx
+	#执行命令
+	./configure
+	#执行make命令
+	make
+	#执行make install命令
+	make install
+	```
+
+3. nginx常用命令
+
+	```bash
+	#测试配置文件
+	安装路径下的/nginx/sbin/nginx -t
+	#启动命令
+	安装路径下的/nginx/sbin/nginx
+	#停止命令
+	安装路径下的/nginx/sbin/nginx -s stop
+	或者 : nginx -s quit
+	#重启命令
+	安装路径下的/nginx/sbin/nginx -s reload
+	```
