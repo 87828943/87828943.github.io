@@ -90,6 +90,10 @@ public class HelloWorld {
 
 ## 程序计数器（Program Counter Register）
 
+一块较小的内存空间，字节码的行号指示器，为线程的切换提供保障
+
+## Java虚拟机栈（Java Virtual Machine Stacks）
+
 与程序计数器一样，Java虚拟机栈（Java Virtual Machine Stacks）也是线程私有的，**它的生命周期与线程相同。虚拟机栈描述的是Java方法执行的内存模型**：每个方法被执行的时候都会同时创建一个栈帧（Stack Frame）用于存储局部变量表、操作栈、动态链接、方法出口等信息。**每一个方法被调用直至执行完成的过程，就对应着一个栈帧在虚拟机栈中从入栈到出栈的过程**。
 
 局部变量表存放了编译期可知的各种基本数据类型（boolean、byte、char、short、int、float、long、double）、对象引用（reference类型，它不等同于对象本身，根据不同的虚拟机实现，它可能是一个指向对象起始地址的引用指针，也可能指向一个代表对象的句柄或者其他与此对象相关的位置）和returnAddress类型（指向了一条字节码指令的地址）。
@@ -108,7 +112,7 @@ public class HelloWorld {
 ```java
 Exception in thread "main": java.lang.OutOfMemoryError: Java heap space
 ```
-原因：对象不能被分配到堆内存中
+原因：堆溢出
 ```java
 Exception in thread "main": java.lang.OutOfMemoryError: PermGen space
 ```
