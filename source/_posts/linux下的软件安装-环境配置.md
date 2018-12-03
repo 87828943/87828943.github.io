@@ -5,7 +5,7 @@ tags: [linux]
 ---
 
 
-
+文件传输，jdk，mysql，jenkins，git，redis，nginx
 【存档备份】
 
 <!-- more -->

@@ -189,12 +189,60 @@ Full GC日志:
 
 Sun JDK监控和故障处理命令有jps jstat jmap jhat jstack jinfo
 
-* jps，JVM Process Status Tool,显示指定系统内所有的HotSpot虚拟机进程。
-* jstat，JVM statistics Monitoring是用于监视虚拟机运行时状态信息的命令，它可以显示出虚拟机进程中的类装载、内存、垃圾收集、JIT编译等运行数据。
-* jmap，JVM Memory Map命令用于生成heap dump文件
-* jhat，JVM Heap Analysis Tool命令是与jmap搭配使用，用来分析jmap生成的dump，jhat内置了一个微型的HTTP/HTML服务器，生成dump的分析结果后，可以在浏览器中查看
-* jstack，用于生成java虚拟机当前时刻的线程快照。
-* jinfo，JVM Configuration info 这个命令作用是实时查看和调整虚拟机运行参数。
+* **jps**
+	jps命令用于查询正在运行的JVM进程，常用的参数为：
+    -q:只输出LVMID，省略主类的名称
+    -m:输出虚拟机进程启动时传给主类main()函数的参数
+    -l:输出主类的全类名，如果进程执行的是Jar包，输出Jar路径
+    -v:输出虚拟机进程启动时JVM参数
+	命令格式:jps [option] [hostid] 
+* **jstat**
+	jstat可以实时显示本地或远程JVM进程中类装载、内存、垃圾收集、JIT编译等数据（如果要显示远程JVM信息，需要远程主机开启RMI支持）。如果在服务启动时没有指定启动参数-verbose:gc，则可以用jstat实时查看gc情况。
+	jstat有如下选项：
+   -class:监视类装载、卸载数量、总空间及类装载所耗费的时间
+   -gc:监听Java堆状况，包括Eden区、两个Survivor区、老年代、永久代等的容量，以用空间、GC时间合计等信息
+   -gccapacity:监视内容与-gc基本相同，但输出主要关注java堆各个区域使用到的最大和最小空间
+   -gcutil:监视内容与-gc基本相同，但输出主要关注已使用空间占总空间的百分比
+   -gccause:与-gcutil功能一样，但是会额外输出导致上一次GC产生的原因
+   -gcnew:监视新生代GC状况
+   -gcnewcapacity:监视内同与-gcnew基本相同，输出主要关注使用到的最大和最小空间
+   -gcold:监视老年代GC情况
+   -gcoldcapacity:监视内同与-gcold基本相同，输出主要关注使用到的最大和最小空间
+   -gcpermcapacity:输出永久代使用到最大和最小空间
+   -compiler:输出JIT编译器编译过的方法、耗时等信息
+   -printcompilation:输出已经被JIT编译的方法
+	命令格式:jstat [option vmid [interval[s|ms] [count]]]
+* **jmap**
+	用于显示当前Java堆和永久代的详细信息（如当前使用的收集器，当前的空间使用率等）
+   -dump:生成java堆转储快照
+   -heap:显示java堆详细信息(只在Linux/Solaris下有效)
+   -F:当虚拟机进程对-dump选项没有响应时，可使用这个选项强制生成dump快照(只在Linux/Solaris下有效)
+   -finalizerinfo:显示在F-Queue中等待Finalizer线程执行finalize方法的对象(只在Linux/Solaris下有效)
+   -histo:显示堆中对象统计信息
+   -permstat:以ClassLoader为统计口径显示永久代内存状态(只在Linux/Solaris下有效)
+	命令格式:jmap [option] vmid
+	其中前面3个参数最重要，如：
+	查看对详细信息：sudo jmap -heap 309
+	生成dump文件： sudo jmap -dump:file=./test.prof 309
+	部分用户没有权限时，采用admin用户：sudo -u admin -H  jmap -dump:format=b,file=文件名.hprof pid
+	查看当前堆中对象统计信息：sudo  jmap -histo 309：该命令显示3列，分别为对象数量，对象大小，对象名称，通过该命令可以查看是否内存中有大对象；
+	有的用户可能没有jmap权限：sudo -u admin -H jmap -histo 309 | less
+* **jhat**
+	用于分析使用jmap生成的dump文件，是JDK自带的工具，使用方法为： jhat -J -Xmx512m [file]
+	不过jhat没有mat好用，推荐使用mat（Eclipse插件： http://www.eclipse.org/mat ），mat速度更快，而且是图形界面
+* **jstack**
+	用于生成当前JVM的所有线程快照，线程快照是虚拟机每一条线程正在执行的方法,目的是定位线程出现长时间停顿的原因。
+   -F:当正常输出的请求不被响应时，强制输出线程堆栈
+   -l:除堆栈外，显示关于锁的附加信息
+   -m:如果调用到本地方法的话，可以显示C/C++的堆栈
+	命令格式:jstack [option] vmid
+* **jinfo**
+	用于查询当前运行这的JVM属性和参数的值。
+	jinfo可以使用如下选项：
+   -flag:显示未被显示指定的参数的系统默认值
+   -flag [+|-]name或-flag name=value: 修改部分参数
+   -sysprops:打印虚拟机进程的System.getProperties()
+	命令格式:jinfo [option] pid 
 
 ### 调优工具
 
@@ -204,5 +252,7 @@ Sun JDK监控和故障处理命令有jps jstat jmap jhat jstack jinfo
 * jvisualvm，jdk自带全能工具，可以分析内存快照、线程快照；监控内存变化、GC变化等。
 * MAT，Memory Analyzer Tool，一个基于Eclipse的内存分析工具，是一个快速、功能丰富的Java heap分析工具，它可以帮助我们查找内存泄漏和减少内存消耗
 * GChisto，一款专业分析gc日志的工具
+有兴趣的可以看看下面的文章，在此不再赘述：
+http://blog.csdn.net/java2000_wl/article/details/8049707
 
 ***详情：[jvm 4.如何优化Java-GC「译」](/2018/07/03/jvm%204.如何优化Java-GC「译」/)***
