@@ -116,8 +116,28 @@ $ npm install hexo-renderer-jade hexo-renderer-stylus
 
 1. 可以通过github维护一个新的分支，一个存静态文件用于展示，一个存放源生文件。
 2. 新电脑搭建好环境后，只需要复制以下文件或目录进行覆盖即可。
-	* _config.yml  	（包含个性化个人站点配置）
+	* config.yml  	（包含个性化个人站点配置）
 	* package.json 	（当前版本信息）
 	* scaffolds/ 	（存放个性化模板，没改动过的话不需要）
 	* source/ 		（存放文章以及文件）
 	* themes/		（个性化主题）
+
+具体步骤
+
+```bash
+#新建的hexo仓库
+git init
+
+#关联远程仓库
+git remote add origin 远程地址
+
+#新电脑配置sshkey
+---
+
+#更新dev分支到本地
+#直接删除本地冲突文件在更新
+git pull origin dev
+
+#如果启动后访问有异常尝试执行
+npm install hexo-renderer-jade hexo-renderer-stylus
+```
