@@ -1,0 +1,200 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="SpringBoot 3.spring-data-jpa框架"><meta name="keywords" content="springboot,jpa"><meta name="author" content="Guo,undefined"><meta name="copyright" content="Guo"><title>SpringBoot 3.spring-data-jpa框架 | 『人生一世，草木一秋』</title><link rel="shortcut icon" href="/img/icon.ico"><link rel="stylesheet" href="/css/index.css?version=1.5.6"><link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/gh/upupming/gitalk@36368e5dffd049e956cdbbd751ff96c28d8255cf/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  }
+} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#spring-data-jpa的使用"><span class="toc-number">1.</span> <span class="toc-text">spring-data-jpa的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#spring-data-jpa介绍"><span class="toc-number">1.1.</span> <span class="toc-text">spring-data-jpa介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JPA是什么？"><span class="toc-number">1.1.1.</span> <span class="toc-text">JPA是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#spring-data-jpa"><span class="toc-number">1.1.2.</span> <span class="toc-text">spring-data-jpa</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#spring-data-jpa使用"><span class="toc-number">1.2.</span> <span class="toc-text">spring-data-jpa使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#配置"><span class="toc-number">1.2.1.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用"><span class="toc-number">1.2.2.</span> <span class="toc-text">使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#数据库层代码"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">数据库层代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#测试"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">测试</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#扩展"><span class="toc-number">1.2.3.</span> <span class="toc-text">扩展</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#自定义查询"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">自定义查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#分页查询"><span class="toc-number">1.2.3.2.</span> <span class="toc-text">分页查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#限制查询"><span class="toc-number">1.2.3.3.</span> <span class="toc-text">限制查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#自定义SQL查询"><span class="toc-number">1.2.3.4.</span> <span class="toc-text">自定义SQL查询</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">Guo</div><div class="author-info__description text-center">当你知道早晨为何醒来的时候，你也就找到了活着的意义和价值。</div><div class="follow-button"><a href="tencent://message/?uin=81387949&amp;amp;Menu=yes" target="_blank">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">22</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">23</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">4</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" href="人生一世" target="_blank">人生一世</a><a class="author-info-links__name text-center" href="草木一秋" target="_blank">草木一秋</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(/img/background.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">『人生一世，草木一秋』</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> Search</span></a><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a><a class="site-page" href="/java.html">Java大纲</a></span></div><div id="post-info"><div id="post-title">SpringBoot 3.spring-data-jpa框架</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2018-06-05</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/springboot/">springboot</a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h1 id="spring-data-jpa的使用"><a href="#spring-data-jpa的使用" class="headerlink" title="spring-data-jpa的使用"></a>spring-data-jpa的使用</h1><h2 id="spring-data-jpa介绍"><a href="#spring-data-jpa介绍" class="headerlink" title="spring-data-jpa介绍"></a>spring-data-jpa介绍</h2><h3 id="JPA是什么？"><a href="#JPA是什么？" class="headerlink" title="JPA是什么？"></a>JPA是什么？</h3><p>JPA是Java Persistence API的简称，中文名Java持久层API，是JDK 5.0注解或XML描述对象－关系表的映射关系，并将运行期的实体对象持久化到数据库中。<br>Sun引入新的JPA ORM规范出于两个原因：其一，简化现有Java EE和Java SE应用开发工作；其二，Sun希望整合ORM技术，实现天下归一。</p>
+<p>PA的总体思想和现有Hibernate、TopLink、JDO等ORM框架大体一致。总的来说，JPA包括以下3方面的技术：</p>
+<ol>
+<li>ORM映射元数据<br> JPA支持XML和JDK5.0注解两种元数据的形式，元数据描述对象和表之间的映射关系，框架据此将实体对象持久化到数据库表中；</li>
+<li>API<br> 用来操作实体对象，执行CRUD操作，框架在后台替代我们完成所有的事情，开发者从繁琐的JDBC和SQL代码中解脱出来。</li>
+<li>查询语言<br> 这是持久化操作中很重要的一个方面，通过面向对象而非面向数据库的查询语言查询数据，避免程序的SQL语句紧密耦合。</li>
+</ol>
+<a id="more"></a>
+<h3 id="spring-data-jpa"><a href="#spring-data-jpa" class="headerlink" title="spring-data-jpa"></a>spring-data-jpa</h3><p>Spring Data JPA 是 Spring 基于 ORM 框架、JPA 规范的基础上封装的一套JPA应用框架，可使开发者用极简的代码即可实现对数据的访问和操作。它提供了包括增删改查等在内的常用功能，且易于扩展！学习并使用 Spring Data JPA 可以极大提高开发效率！</p>
+<h2 id="spring-data-jpa使用"><a href="#spring-data-jpa使用" class="headerlink" title="spring-data-jpa使用"></a>spring-data-jpa使用</h2><h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>添加pom依赖<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-data-jpa&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;mysql&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
+<p>application.properties添加配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#数据库链接</span><br><span class="line">spring.datasource.url=jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=UTC&amp;useSSL=true</span><br><span class="line">spring.datasource.username=root</span><br><span class="line">spring.datasource.password=root</span><br><span class="line">spring.datasource.driver-class-name=com.mysql.jdbc.Driver</span><br><span class="line"></span><br><span class="line">#spring data jpa 配置</span><br><span class="line">spring.jpa.properties.hibernate.hbm2ddl.auto=update</span><br><span class="line">spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5InnoDBDialect</span><br><span class="line">spring.jpa.show-sql= true</span><br></pre></td></tr></table></figure></p>
+<p>hbm2ddl.auto参数的作用主要用于：自动创建|更新|验证数据库表结构,有四个值：</p>
+<blockquote>
+<ol>
+<li>create： 每次加载hibernate时都会删除上一次的生成的表，然后根据你的model类再重新来生成新表，哪怕两次没有任何改变也要这样执行，这就是导致数据库表数据丢失的一个重要原因。</li>
+<li>create-drop ：每次加载hibernate时根据model类生成表，但是sessionFactory一关闭,表就自动删除。</li>
+<li>update：最常用的属性，第一次加载hibernate时根据model类会自动建立起表的结构（前提是先建立好数据库），以后加载hibernate时根据 model类自动更新表结构，即使表结构改变了但表中的行仍然存在不会删除以前的行。要注意的是当部署到服务器后，表结构是不会被马上建立起来的，是要等 应用第一次运行起来后才会。</li>
+<li>validate ：每次加载hibernate时，验证创建数据库表结构，只会和数据库中的表进行比较，不会创建新表，但是会插入新值。</li>
+</ol>
+</blockquote>
+<p>dialect 主要是指定生成表名的存储引擎为InneoDB</p>
+<p>show-sql 控制台打印sql，方便调试</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><h4 id="数据库层代码"><a href="#数据库层代码" class="headerlink" title="数据库层代码"></a>数据库层代码</h4><p>BaseEntity.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.persistence.*;</span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="comment">//@MappedSuperclass注解（或mapped-superclass XML描述符元素）来指定映射超类。映射超类不会生成单独的表，它的映射信息作用于继承自它的实体类。</span></span><br><span class="line"><span class="meta">@MappedSuperclass</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseEntity</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = -<span class="number">6845215436041679253L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="meta">@GeneratedValue</span>(strategy= GenerationType.IDENTITY)</span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Column</span>(name= <span class="string">"is_delete"</span>, nullable = <span class="keyword">false</span>)</span><br><span class="line">    <span class="keyword">private</span> Integer isDelete = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 省略getset方法 --&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>User.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.persistence.Column;</span><br><span class="line"><span class="keyword">import</span> javax.persistence.Entity;</span><br><span class="line"><span class="keyword">import</span> javax.persistence.Table;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="meta">@Table</span>(name=<span class="string">"mars_user"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">extends</span> <span class="title">BaseEntity</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//账户</span></span><br><span class="line">    <span class="meta">@Column</span>(name=<span class="string">"name"</span>, nullable = <span class="keyword">false</span>, unique = <span class="keyword">true</span>)</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//邮箱</span></span><br><span class="line">    <span class="meta">@Column</span>(name=<span class="string">"email"</span>, nullable = <span class="keyword">false</span>, unique = <span class="keyword">true</span>)</span><br><span class="line">    <span class="keyword">private</span> String email;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//加密密码</span></span><br><span class="line">    <span class="meta">@Column</span>(name=<span class="string">"password"</span>, nullable = <span class="keyword">false</span>)</span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line"></span><br><span class="line">    &lt;!-- 省略getset方法 --&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><p>1.继承JpaRepository</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserRepository</span>  <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">User</span>, <span class="title">Long</span>&gt;</span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.使用JpaRepository默认方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> UserRepository userRepository;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testUser</span><span class="params">()</span></span>&#123;</span><br><span class="line">	User user = <span class="keyword">new</span> User();</span><br><span class="line">	user.setName(<span class="string">"abc"</span>);</span><br><span class="line">	user.setEmail(<span class="string">"abc@qq.com"</span>);</span><br><span class="line">	user.setPassword(MD5Util.encrypt(<span class="string">"mimahenjiandan"</span>));</span><br><span class="line"></span><br><span class="line">	userRepository.save(user);</span><br><span class="line">	<span class="comment">//userRepository.findAll();</span></span><br><span class="line">	<span class="comment">//userRepository.delete(user);</span></span><br><span class="line">	<span class="comment">//userRepository.count();</span></span><br><span class="line">	<span class="comment">//...等等</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3.启动成功创建表与数据</p>
+<p><img src="/images/2018-06-05/springboot_jpa_1.png" alt="spring data jpa"></p>
+<p><img src="/images/2018-06-05/springboot_jpa_2.png" alt="spring data jpa"></p>
+<h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><h4 id="自定义查询"><a href="#自定义查询" class="headerlink" title="自定义查询"></a>自定义查询</h4><p>自定义的简单查询就是根据方法名来自动生成SQL，主要的语法是findXXBy,readAXXBy,queryXXBy,countXXBy, getXXBy后面跟属性名称：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">User <span class="title">findByName</span><span class="params">(String name)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>也使用一些加一些关键字And、 Or</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">User <span class="title">findByNameOrEmail</span><span class="params">(String name, String email)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>修改、删除、统计也是类似语法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Long <span class="title">deleteById</span><span class="params">(Long id)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function">Long <span class="title">countByName</span><span class="params">(String name)</span></span></span><br></pre></td></tr></table></figure>
+<p>基本上SQL体系中的关键词都可以使用，例如：LIKE、 IgnoreCase、 OrderBy。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">List&lt;User&gt; <span class="title">findByEmailLike</span><span class="params">(String email)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function">User <span class="title">findByNameIgnoreCase</span><span class="params">(String name)</span></span>;</span><br><span class="line">    </span><br><span class="line"><span class="function">List&lt;User&gt; <span class="title">findByNameOrderByEmailDesc</span><span class="params">(String email)</span></span>;</span><br></pre></td></tr></table></figure>
+<p><strong> 具体的关键字，使用方法和生产成SQL如下表所示 </strong></p>
+<table>
+<thead>
+<tr>
+<th>Keyword</th>
+<th style="text-align:center">Sample</th>
+<th>JPQL snippet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>And</td>
+<td style="text-align:center">findByLastnameAndFirstname</td>
+<td>… where x.lastname = ?1 and x.firstname = ?2</td>
+</tr>
+<tr>
+<td>Or</td>
+<td style="text-align:center">findByLastnameOrFirstname</td>
+<td>… where x.lastname = ?1 or x.firstname = ?2</td>
+</tr>
+<tr>
+<td>Is,Equals</td>
+<td style="text-align:center">findByFirstnameIs,findByFirstnameEquals</td>
+<td>… where x.firstname = ?1</td>
+</tr>
+<tr>
+<td>Between</td>
+<td style="text-align:center">findByStartDateBetween</td>
+<td>… where x.startDate between ?1 and ?2</td>
+</tr>
+<tr>
+<td>LessThan</td>
+<td style="text-align:center">findByAgeLessThan</td>
+<td>… where x.age &lt; ?1</td>
+</tr>
+<tr>
+<td>LessThanEqual</td>
+<td style="text-align:center">findByAgeLessThanEqual</td>
+<td>… where x.age ⇐ ?1</td>
+</tr>
+<tr>
+<td>GreaterThan</td>
+<td style="text-align:center">findByAgeGreaterThan</td>
+<td>… where x.age &gt; ?1</td>
+</tr>
+<tr>
+<td>GreaterThanEqual</td>
+<td style="text-align:center">findByAgeGreaterThanEqual</td>
+<td>… where x.age &gt;= ?1</td>
+</tr>
+<tr>
+<td>After</td>
+<td style="text-align:center">findByStartDateAfter</td>
+<td>… where x.startDate &gt; ?1</td>
+</tr>
+<tr>
+<td>Before</td>
+<td style="text-align:center">findByStartDateBefore</td>
+<td>… where x.startDate &lt; ?1</td>
+</tr>
+<tr>
+<td>IsNull</td>
+<td style="text-align:center">findByAgeIsNull</td>
+<td>… where x.age is null</td>
+</tr>
+<tr>
+<td>IsNotNull,NotNull</td>
+<td style="text-align:center">findByAge(Is)NotNull</td>
+<td>… where x.age not null</td>
+</tr>
+<tr>
+<td>Like</td>
+<td style="text-align:center">findByFirstnameLike</td>
+<td>… where x.firstname like ?1</td>
+</tr>
+<tr>
+<td>NotLike</td>
+<td style="text-align:center">findByFirstnameNotLike</td>
+<td>… where x.firstname not like ?1</td>
+</tr>
+<tr>
+<td>StartingWith</td>
+<td style="text-align:center">findByFirstnameStartingWith</td>
+<td>… where x.firstname like ?1 (parameter bound with appended %)</td>
+</tr>
+<tr>
+<td>EndingWith</td>
+<td style="text-align:center">findByFirstnameEndingWith</td>
+<td>… where x.firstname like ?1 (parameter bound with prepended %)</td>
+</tr>
+<tr>
+<td>Containing</td>
+<td style="text-align:center">findByFirstnameContaining</td>
+<td>… where x.firstname like ?1 (parameter bound wrapped in %)</td>
+</tr>
+<tr>
+<td>OrderBy</td>
+<td style="text-align:center">findByAgeOrderByLastnameDesc</td>
+<td>… where x.age = ?1 order by x.lastname desc</td>
+</tr>
+<tr>
+<td>Not</td>
+<td style="text-align:center">findByLastnameNot</td>
+<td>… where x.lastname &lt;&gt; ?1</td>
+</tr>
+<tr>
+<td>In</td>
+<td style="text-align:center">findByAgeIn(Collection ages)</td>
+<td>… where x.age in ?1</td>
+</tr>
+<tr>
+<td>NotIn</td>
+<td style="text-align:center">findByAgeNotIn(Collection age)</td>
+<td>… where x.age not in ?1</td>
+</tr>
+<tr>
+<td>TRUE</td>
+<td style="text-align:center">findByActiveTrue()</td>
+<td>… where x.active = true</td>
+</tr>
+<tr>
+<td>FALSE</td>
+<td style="text-align:center">findByActiveFalse()</td>
+<td>… where x.active = false</td>
+</tr>
+<tr>
+<td>IgnoreCase</td>
+<td style="text-align:center">findByFirstnameIgnoreCase</td>
+<td>… where UPPER(x.firstame) = UPPER(?1)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h4><p>分页查询在实际使用中非常普遍了，spring data jpa已经帮我们实现了分页的功能，在查询的方法中，需要传入参数Pageable ,当查询中有多个参数的时候Pageable建议做为最后一个参数传入</p>
+<blockquote>
+<p>Pageable 是spring封装的分页实现类，使用的时候需要传入页数、每页条数和排序规则</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> page=<span class="number">1</span>,size=<span class="number">10</span>;</span><br><span class="line">Sort sort = <span class="keyword">new</span> Sort(Direction.DESC, <span class="string">"id"</span>);</span><br><span class="line">Pageable pageable = <span class="keyword">new</span> PageRequest(page, size, sort);</span><br><span class="line"></span><br><span class="line"><span class="function">Page&lt;User&gt; <span class="title">findALL</span><span class="params">(Pageable pageable)</span></span>;</span><br><span class="line">    </span><br><span class="line"><span class="function">Page&lt;User&gt; <span class="title">findByName</span><span class="params">(String name,Pageable pageable)</span></span>;</span><br></pre></td></tr></table></figure>
+<h4 id="限制查询"><a href="#限制查询" class="headerlink" title="限制查询"></a>限制查询</h4><p>有时候我们只需要查询前N个元素，或者只取前一个实体。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ser <span class="title">findFirstByOrderByLastnameAsc</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function">User <span class="title">findTopByOrderByAgeDesc</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function">Page&lt;User&gt; <span class="title">queryFirst10ByLastname</span><span class="params">(String lastname, Pageable pageable)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function">List&lt;User&gt; <span class="title">findFirst10ByLastname</span><span class="params">(String lastname, Sort sort)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function">List&lt;User&gt; <span class="title">findTop10ByLastname</span><span class="params">(String lastname, Pageable pageable)</span></span>;</span><br></pre></td></tr></table></figure>
+<h4 id="自定义SQL查询"><a href="#自定义SQL查询" class="headerlink" title="自定义SQL查询"></a>自定义SQL查询</h4><p>其实Spring data 觉大部分的SQL都可以根据方法名定义的方式来实现，但是由于某些原因我们想使用自定义的SQL来查询，spring data也是完美支持的；在SQL的查询方法上面使用@Query注解，如涉及到删除和修改在需要加上@Modifying.也可以根据需要添加 @Transactional 对事物的支持，查询超时的设置等</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Modifying</span></span><br><span class="line"><span class="meta">@Query</span>(<span class="string">"update User u set u.name = ? where u.id = ?"</span>)</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">modifyByIdAndUserId</span><span class="params">(String  name, Long id)</span></span>;</span><br><span class="line">	</span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="meta">@Modifying</span></span><br><span class="line"><span class="meta">@Query</span>(<span class="string">"delete from User where id = ?"</span>)</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">deleteByUserId</span><span class="params">(Long id)</span></span>;</span><br><span class="line">  </span><br><span class="line"><span class="meta">@Transactional</span>(timeout = <span class="number">10</span>)</span><br><span class="line"><span class="meta">@Query</span>(<span class="string">"select u from User u where u.email = ?"</span>)</span><br><span class="line"><span class="function">User <span class="title">findByEmail</span><span class="params">(String email)</span></span>;</span><br></pre></td></tr></table></figure></div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">Guo</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://www.guowenbo.top/2018/06/05/SpringBoot 3.spring-data-jpa框架/">http://www.guowenbo.top/2018/06/05/SpringBoot 3.spring-data-jpa框架/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/springboot/">springboot</a><a class="post-meta__tags" href="/tags/jpa/">jpa</a></div><div class="social-share" data-disabled="google,facebook"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><nav id="pagination"><div class="prev-post pull-left"><a href="/2018/06/22/SpringBoot 4.集成redis/"><i class="fa fa-chevron-left">  </i><span>SpringBoot 4.集成redis</span></a></div><div class="next-post pull-right"><a href="/2018/06/04/SpringBoot 2.thymeleaf模板/"><span>SpringBoot 2.thymeleaf模板</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
+  clientID: '8ee07b919a1bb5d250b7',
+  clientSecret: '1d531cc27460532d4dd30ce696004408cc8052d2',
+  repo: '87828943.github.io',
+  owner: '87828943',
+  admin: '87828943',
+  id: md5(decodeURI(location.pathname)),
+  language: 'zh-CN'
+})
+gitalk.render('gitalk-container')</script></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2018 - 2019 By Guo</div><div class="framework-info"><span>Driven - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="/js/third-party/anime.min.js"></script><script src="/js/third-party/jquery.min.js"></script><script src="/js/third-party/jquery.fancybox.min.js"></script><script src="/js/third-party/velocity.min.js"></script><script src="/js/third-party/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.5.6"></script><script src="/js/fancybox.js?version=1.5.6"></script><script src="/js/sidebar.js?version=1.5.6"></script><script src="/js/copy.js?version=1.5.6"></script><script src="/js/fireworks.js?version=1.5.6"></script><script src="/js/transition.js?version=1.5.6"></script><script src="/js/scroll.js?version=1.5.6"></script><script src="/js/head.js?version=1.5.6"></script><script src="/js/search/local-search.js"></script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">Local search</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>Powered by</span> <a href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="SpringBoot 6.定时任务"><meta name="keywords" content="springboot,scheduler"><meta name="author" content="Guo,undefined"><meta name="copyright" content="Guo"><title>SpringBoot 6.定时任务 | 『人生一世，草木一秋』</title><link rel="shortcut icon" href="/img/icon.ico"><link rel="stylesheet" href="/css/index.css?version=1.5.6"><link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css?version=1.5.6"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/gh/upupming/gitalk@36368e5dffd049e956cdbbd751ff96c28d8255cf/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  }
+} </script></head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#定时任务"><span class="toc-number">1.</span> <span class="toc-text">定时任务</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#引入pom"><span class="toc-number">1.1.</span> <span class="toc-text">引入pom</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动类启用定时"><span class="toc-number">1.2.</span> <span class="toc-text">启动类启用定时</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建定时任务实现类"><span class="toc-number">1.3.</span> <span class="toc-text">创建定时任务实现类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Scheduled-参数说明"><span class="toc-number">1.4.</span> <span class="toc-text">@Scheduled 参数说明</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cron表达式格式"><span class="toc-number">2.</span> <span class="toc-text">cron表达式格式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#每个字段的允许值"><span class="toc-number">2.1.</span> <span class="toc-text">每个字段的允许值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#允许值的意思"><span class="toc-number">2.2.</span> <span class="toc-text">允许值的意思</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#每个符号的意义"><span class="toc-number">2.3.</span> <span class="toc-text">每个符号的意义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一些cron表达式案例"><span class="toc-number">2.4.</span> <span class="toc-text">一些cron表达式案例</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">Guo</div><div class="author-info__description text-center">当你知道早晨为何醒来的时候，你也就找到了活着的意义和价值。</div><div class="follow-button"><a href="tencent://message/?uin=81387949&amp;amp;Menu=yes" target="_blank">Follow Me</a></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">22</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">23</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">4</span></a></div><hr><div class="author-info-links"><div class="author-info-links__title text-center">Links</div><a class="author-info-links__name text-center" href="人生一世" target="_blank">人生一世</a><a class="author-info-links__name text-center" href="草木一秋" target="_blank">草木一秋</a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(/img/background.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">『人生一世，草木一秋』</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> Search</span></a><a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a><a class="site-page" href="/about">About</a><a class="site-page" href="/java.html">Java大纲</a></span></div><div id="post-info"><div id="post-title">SpringBoot 6.定时任务</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2018-07-06</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/springboot/">springboot</a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h1 id="定时任务"><a href="#定时任务" class="headerlink" title="定时任务"></a>定时任务</h1><p>项目开发过程中，经常需要定时任务来帮助我们来做一些内容，springboot默认已经帮我们实行了，只需要添加相应的注解就可以实现。比如定时发送邮件。</p>
+<h2 id="引入pom"><a href="#引入pom" class="headerlink" title="引入pom"></a>引入pom</h2><p>pom包里面只需要引入springboot starter包即可</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;spring-boot-starter&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="启动类启用定时"><a href="#启动类启用定时" class="headerlink" title="启动类启用定时"></a>启动类启用定时</h2><p>在启动类上面加上 <code>@EnableScheduling</code> 即可开启定时</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableScheduling</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		SpringApplication.run(Application.class, args);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="创建定时任务实现类"><a href="#创建定时任务实现类" class="headerlink" title="创建定时任务实现类"></a>创建定时任务实现类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestScheduler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserController userController;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Scheduled</span>(cron = <span class="string">"*/6 * * * * ?"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendEmail</span><span class="params">()</span></span>&#123;</span><br><span class="line">        userController.sendHtmlEmail(<span class="string">"XXXX@qq.com"</span>,<span class="string">"[TestScheduler]"</span>,<span class="string">"####TestScheduler####"</span>);</span><br><span class="line">        System.out.println(<span class="string">"send success!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Scheduled</span>(fixedRate = <span class="number">6000</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"test"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>启动项目后</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">启动时间:<span class="number">9</span>秒</span><br><span class="line">...............................................................</span><br><span class="line">..................Service starts successfully..................</span><br><span class="line">...............................................................</span><br><span class="line">send success!</span><br><span class="line">current time:<span class="number">17</span>:<span class="number">01</span>:<span class="number">16</span></span><br><span class="line">send success!</span><br><span class="line">current time:<span class="number">17</span>:<span class="number">01</span>:<span class="number">22</span></span><br><span class="line">send success!</span><br><span class="line">current time:<span class="number">17</span>:<span class="number">01</span>:<span class="number">28</span></span><br><span class="line">send success!</span><br><span class="line">current time:<span class="number">17</span>:<span class="number">01</span>:<span class="number">34</span></span><br></pre></td></tr></table></figure>
+<h2 id="Scheduled-参数说明"><a href="#Scheduled-参数说明" class="headerlink" title="@Scheduled 参数说明"></a><code>@Scheduled</code> 参数说明</h2><p>上面两种定时的设置，一种是我们常用的 <code>cron=&quot;*/6 * * * * ?&quot;</code> ,一种是 <code>fixedRate = 6000</code> ，两种都表示每隔六秒打印一下内容。</p>
+<p><strong>说明</strong></p>
+<ul>
+<li><code>cron</code>：指定cron表达式</li>
+<li><code>zone</code>：默认使用服务器默认时区。可以设置为java.util.TimeZone中的zoneId</li>
+<li><code>fixedDelay</code>：从上一个任务完成开始到下一个任务开始的间隔，单位毫秒</li>
+<li><code>fixedDelayString</code>：同上，时间值是String类型</li>
+<li><code>fixedRate</code>：从上一个任务开始到下一个任务开始的间隔，单位毫秒</li>
+<li><code>fixedRateString</code>：同上，时间值是String类型</li>
+<li><code>initialDelay</code>：任务首次执行延迟的时间，单位毫秒</li>
+<li><code>initialDelayString</code>：同上，时间值是String类型</li>
+</ul>
+<h1 id="cron表达式格式"><a href="#cron表达式格式" class="headerlink" title="cron表达式格式"></a>cron表达式格式</h1><p><code>{秒数} {分钟} {小时} {日期} {月份} {星期} {年份(可为空)}</code><br>例  “0 0 12 ? * WED” 在每星期三下午12:00 执行（年份通常 省略）<br>先了解每个位置代表的含义，在了解每个位置允许的范围，以及一些特殊写法，还有常用的案例，足够你掌握cron表达式</p>
+<h2 id="每个字段的允许值"><a href="#每个字段的允许值" class="headerlink" title="每个字段的允许值"></a>每个字段的允许值</h2><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>允许值</th>
+<th>允许的特殊字符</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>秒</td>
+<td>0-59</td>
+<td>- * /</td>
+</tr>
+<tr>
+<td>分</td>
+<td>0-59</td>
+<td>- * /</td>
+</tr>
+<tr>
+<td>小时</td>
+<td>0-23</td>
+<td>- * /</td>
+</tr>
+<tr>
+<td>日期</td>
+<td>1-31</td>
+<td>- * ? / L W C</td>
+</tr>
+<tr>
+<td>月份</td>
+<td>1-12 或者 JAN-DEC</td>
+<td>- * /</td>
+</tr>
+<tr>
+<td>星期</td>
+<td>1-7 或者 SUN-SAT</td>
+<td>- * ? / L C #</td>
+</tr>
+<tr>
+<td>年（可选）</td>
+<td>留空, 1970-2099</td>
+<td>- * /</td>
+</tr>
+</tbody>
+</table>
+<h2 id="允许值的意思"><a href="#允许值的意思" class="headerlink" title="允许值的意思"></a>允许值的意思</h2><p>Seconds (秒)         ：可以用数字0－59 表示，</p>
+<p>Minutes(分)          ：可以用数字0－59 表示，</p>
+<p>Hours(时)             ：可以用数字0-23表示,</p>
+<p>Day-of-Month(天) ：可以用数字1-31 中的任一一个值，但要注意一些特别的月份</p>
+<p>Month(月)            ：可以用0-11 或用字符串  “JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV and DEC” 表示</p>
+<p>Day-of-Week(每周)：可以用数字1-7表示（1 ＝ 星期日）或用字符口串“SUN, MON, TUE, WED, THU, FRI and SAT”表示</p>
+<h2 id="每个符号的意义"><a href="#每个符号的意义" class="headerlink" title="每个符号的意义"></a>每个符号的意义</h2><ul>
+<li><code>*</code> 表示所有值； </li>
+<li><code>?</code> 表示未说明的值，即不关心它为何值； </li>
+<li><code>-</code> 表示一个指定的范围； </li>
+<li><code>,</code> 表示附加一个可能值； </li>
+<li><code>/</code> 符号前表示开始时间，符号后表示每次递增的值； </li>
+<li><code>L</code>(“last”) (“last”) “L” 用在day-of-month字段意思是 “这个月最后一天”；用在 day-of-week字段, 它简单意思是 “7” or “SAT”。 如果在day-of-week字段里和数字联合使用，它的意思就是 “这个月的最后一个星期几” – 例如： “6L” means “这个月的最后一个星期五”. 当我们用“L”时，不指明一个列表值或者范围是很重要的，不然的话，我们会得到一些意想不到的结果。 </li>
+<li><code>W</code>(“weekday”) 只能用在day-of-month字段。用来描叙最接近指定天的工作日（周一到周五）。例如：在day-of-month字段用“15W”指“最接近这个 月第15天的工作日”，即如果这个月第15天是周六，那么触发器将会在这个月第14天即周五触发；如果这个月第15天是周日，那么触发器将会在这个月第 16天即周一触发；如果这个月第15天是周二，那么就在触发器这天触发。注意一点：这个用法只会在当前月计算值，不会越过当前月。“W”字符仅能在 day-of-month指明一天，不能是一个范围或列表。也可以用“LW”来指定这个月的最后一个工作日。 </li>
+<li><code>#</code> 只能用在day-of-week字段。用来指定这个月的第几个周几。例：在day-of-week字段用”6#3”指这个月第3个周五（6指周五，3指第3个）。如果指定的日期不存在，触发器就不会触发。<br>C 指和calendar联系后计算过的值。例：在day-of-month 字段用“5C”指在这个月第5天或之后包括calendar的第一天；在day-of-week字段用“1C”指在这周日或之后包括calendar的第一天。</li>
+</ul>
+<h2 id="一些cron表达式案例"><a href="#一些cron表达式案例" class="headerlink" title="一些cron表达式案例"></a>一些cron表达式案例</h2><table>
+<thead>
+<tr>
+<th>栗子</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>/5 </em> <em> </em> * ?</td>
+<td>每隔5秒执行一次</td>
+</tr>
+<tr>
+<td>0 <em>/1 </em> <em> </em> ?</td>
+<td>每隔1分钟执行一次</td>
+</tr>
+<tr>
+<td>0 0 5-15 <em> </em> ?</td>
+<td>每天5-15点整点触发</td>
+</tr>
+<tr>
+<td>0 0/3 <em> </em> * ?</td>
+<td>每三分钟触发一次</td>
+</tr>
+<tr>
+<td>0 0-5 14 <em> </em> ?</td>
+<td>在每天下午2点到下午2:05期间的每1分钟触发</td>
+</tr>
+<tr>
+<td>0 0/5 14 <em> </em> ?</td>
+<td>在每天下午2点到下午2:55期间的每5分钟触发</td>
+</tr>
+<tr>
+<td>0 0/5 14,18 <em> </em> ?</td>
+<td>在每天下午2点到2:55期间和下午6点到6:55期间的每5分钟触发</td>
+</tr>
+<tr>
+<td>0 0/30 9-17 <em> </em> ?</td>
+<td>朝九晚五工作时间内每半小时</td>
+</tr>
+<tr>
+<td>0 0 10,14,16 <em> </em> ?</td>
+<td>每天上午10点，下午2点，4点</td>
+</tr>
+<tr>
+<td>0 0 12 ? * WED</td>
+<td>表示每个星期三中午12点</td>
+</tr>
+<tr>
+<td>0 0 17 ? * TUES,THUR,SAT</td>
+<td>每周二、四、六下午五点</td>
+</tr>
+<tr>
+<td>0 10,44 14 ? 3 WED</td>
+<td>每年三月的星期三的下午2:10和2:44触发</td>
+</tr>
+<tr>
+<td>0 15 10 ? * MON-FRI</td>
+<td>周一至周五的上午10:15触发</td>
+</tr>
+<tr>
+<td>0 0 23 L * ?</td>
+<td>每月最后一天23点执行一次</td>
+</tr>
+<tr>
+<td>0 15 10 L * ?</td>
+<td>每月最后一日的上午10:15触发</td>
+</tr>
+<tr>
+<td>0 15 10 ? * 6L</td>
+<td>每月的最后一个星期五上午10:15触发</td>
+</tr>
+<tr>
+<td>0 15 10 <em> </em> ? 2005</td>
+<td>2005年的每天上午10:15触发</td>
+</tr>
+<tr>
+<td>0 15 10 ? * 6L 2002-2005</td>
+<td>2002年至2005年的每月的最后一个星期五上午10:15触发</td>
+</tr>
+<tr>
+<td>0 15 10 ? * 6#3</td>
+<td>每月的第三个星期五上午10:15触发</td>
+</tr>
+<tr>
+<td>30 <em> </em> <em> </em> ?</td>
+<td>每半分钟触发任务</td>
+</tr>
+<tr>
+<td>30 10 <em> </em> * ?</td>
+<td>每小时的10分30秒触发任务</td>
+</tr>
+<tr>
+<td>30 10 1 <em> </em> ?</td>
+<td>每天1点10分30秒触发任务</td>
+</tr>
+<tr>
+<td>30 10 1 20 * ?</td>
+<td>每月20号1点10分30秒触发任务</td>
+</tr>
+<tr>
+<td>30 10 1 20 10 ? *</td>
+<td>每年10月20号1点10分30秒触发任务</td>
+</tr>
+<tr>
+<td>30 10 1 20 10 ? 2011</td>
+<td>2011年10月20号1点10分30秒触发任务</td>
+</tr>
+<tr>
+<td>30 10 1 ? 10 * 2011</td>
+<td>2011年10月每天1点10分30秒触发任务</td>
+</tr>
+<tr>
+<td>30 10 1 ? 10 SUN 2011</td>
+<td>2011年10月每周日1点10分30秒触发任务</td>
+</tr>
+<tr>
+<td>15,30,45 <em> </em> <em> </em> ?</td>
+<td>每15秒，30秒，45秒时触发任务</td>
+</tr>
+<tr>
+<td>15-45 <em> </em> <em> </em> ?</td>
+<td>15到45秒内，每秒都触发任务</td>
+</tr>
+<tr>
+<td>15/5 <em> </em> <em> </em> ?</td>
+<td>每分钟的每15秒开始触发，每隔5秒触发一次</td>
+</tr>
+<tr>
+<td>15-30/5 <em> </em> <em> </em> ?</td>
+<td>每分钟的15秒到30秒之间开始触发，每隔5秒触发一次</td>
+</tr>
+<tr>
+<td>0 0/3 <em> </em> * ?</td>
+<td>每小时的第0分0秒开始，每三分钟触发一次</td>
+</tr>
+<tr>
+<td>0 15 10 ? * MON-FRI</td>
+<td>星期一到星期五的10点15分0秒触发任务</td>
+</tr>
+<tr>
+<td>0 15 10 L * ?</td>
+<td>每个月最后一天的10点15分0秒触发任务</td>
+</tr>
+<tr>
+<td>0 15 10 LW * ?</td>
+<td>每个月最后一个工作日的10点15分0秒触发任务</td>
+</tr>
+<tr>
+<td>0 15 10 ? * 5L</td>
+<td>每个月最后一个星期四的10点15分0秒触发任务</td>
+</tr>
+<tr>
+<td>0 15 10 ? * 5#3</td>
+<td>每个月第三周的星期四的10点15分0秒触发任务</td>
+</tr>
+</tbody>
+</table>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">Guo</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://www.guowenbo.top/2018/07/06/SpringBoot 6.定时任务/">http://www.guowenbo.top/2018/07/06/SpringBoot 6.定时任务/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/springboot/">springboot</a><a class="post-meta__tags" href="/tags/scheduler/">scheduler</a></div><div class="social-share" data-disabled="google,facebook"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><nav id="pagination"><div class="prev-post pull-left"><a href="/2018/11/01/git命令使用/"><i class="fa fa-chevron-left">  </i><span>git命令使用</span></a></div><div class="next-post pull-right"><a href="/2018/07/05/面试必问-ThreadLocal/"><span>面试必问-ThreadLocal</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
+  clientID: '8ee07b919a1bb5d250b7',
+  clientSecret: '1d531cc27460532d4dd30ce696004408cc8052d2',
+  repo: '87828943.github.io',
+  owner: '87828943',
+  admin: '87828943',
+  id: md5(decodeURI(location.pathname)),
+  language: 'zh-CN'
+})
+gitalk.render('gitalk-container')</script></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2018 - 2019 By Guo</div><div class="framework-info"><span>Driven - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="/js/third-party/anime.min.js"></script><script src="/js/third-party/jquery.min.js"></script><script src="/js/third-party/jquery.fancybox.min.js"></script><script src="/js/third-party/velocity.min.js"></script><script src="/js/third-party/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.5.6"></script><script src="/js/fancybox.js?version=1.5.6"></script><script src="/js/sidebar.js?version=1.5.6"></script><script src="/js/copy.js?version=1.5.6"></script><script src="/js/fireworks.js?version=1.5.6"></script><script src="/js/transition.js?version=1.5.6"></script><script src="/js/scroll.js?version=1.5.6"></script><script src="/js/head.js?version=1.5.6"></script><script src="/js/search/local-search.js"></script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">Local search</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>Powered by</span> <a href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
