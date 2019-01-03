@@ -128,8 +128,12 @@ $ npm install hexo-renderer-jade hexo-renderer-stylus
 #新建的hexo仓库
 git init
 
+#创建分支dev
+git checkout dev
+
 #关联远程仓库
 git remote add origin 远程地址
+git remote add dev 远程地址
 
 #新电脑配置sshkey
 ---
@@ -140,4 +144,7 @@ git pull origin dev
 
 #如果启动后访问有异常尝试执行
 npm install hexo-renderer-jade hexo-renderer-stylus
+
+#提交
+git push dev dev
 ```
