@@ -37,7 +37,7 @@ theme_color:
 
 # Highlight theme
 # ---------------
-highlight_theme: default
+highlight_theme: pale night
 
 # default,darker,pale night,light
 
